@@ -4,12 +4,14 @@
     background-color: beige;
     box-shadow: 5px 10px;
     padding: 20px;
-    width: 500px
+    width: 500px;
+    display: flex;
+    flex-direction: column;
 }
 
 .main {
     justify-content: center;
-    display: flex;;
+    display: flex;
 }
 
 .display {
@@ -20,7 +22,9 @@
     background-color: rgba(0, 162, 255, 0.247);
     font-size: 32px;
     font-weight: 800;
-    font-family: 'Scientific Calculator LCD', sans-serif;   
+    font-family: 'Scientific Calculator LCD', sans-serif;  
+    flex: 0 1 auto;
+    word-wrap:break-word;
 }
 
 .row {

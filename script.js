@@ -42,5 +42,14 @@
 
         }
 
-
     }
+
+
+const numbers = document.querySelectorAll('.number');
+const display = document.querySelector('.display');
+
+numbers.forEach( (item) =>  {
+    item.addEventListener('click', (e) => {
+        display.textContent += e.target.textContent
+    })
+})
