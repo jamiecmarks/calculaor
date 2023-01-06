@@ -45,11 +45,32 @@
     }
 
 
-const numbers = document.querySelectorAll('.number');
+const number = document.querySelectorAll('.number, .clear');
+const operators = document.querySelectorAll('.operator');
 const display = document.querySelector('.display');
+const equals = document.querySelector('.equals')
 
-numbers.forEach( (item) =>  {
+let a, b, operator
+
+number.forEach( (item) =>  {
     item.addEventListener('click', (e) => {
+        if (e.target.classList == 'clear') {
+            display.textContent = '';
+        } else { 
         display.textContent += e.target.textContent
+        }
     })
 })
+
+operators.forEach( (item) => {
+    item.addEventListener("click", (e) => {
+        a = +display.textContent;
+        display.textContent = '';
+        operator = e.target.textContent;
+    })
+} )
+
+equals.addEventListener('click', (e) => {
+    b = +display.textContent;
+
+} )

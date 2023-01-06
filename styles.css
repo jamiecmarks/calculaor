@@ -33,7 +33,7 @@
     margin-bottom: 10px;
 }
 
-.row > button {
+button {
     flex: 1 1 auto;
     font-size: 25px;
     padding: 10px 20px;
