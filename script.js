@@ -23,6 +23,9 @@
     }
 
     function operate ( operator, a , b) {
+        if ( !a || !b || !operator) {
+            return "INSUFFICENT INFORMATION"
+        }
         switch (operator) {
             case "+":
                 return add( a, b )
@@ -50,27 +53,47 @@ const operators = document.querySelectorAll('.operator');
 const display = document.querySelector('.display');
 const equals = document.querySelector('.equals')
 
+function populateDisplay ( str ) {
+    display.textContent += str;
+}
+
 let a, b, operator
 
 number.forEach( (item) =>  {
     item.addEventListener('click', (e) => {
         if (e.target.classList == 'clear') {
             display.textContent = '';
+            a = null;
+            b = null;
+            operator = null;
         } else { 
-        display.textContent += e.target.textContent
+        populateDisplay(e.target.textContent);
         }
     })
 })
 
 operators.forEach( (item) => {
     item.addEventListener("click", (e) => {
-        a = +display.textContent;
-        display.textContent = '';
+        // populateDisplay( `${a} ` )
+        a = Number(display.textContent);
         operator = e.target.textContent;
+        display.textContent = '';
     })
 } )
 
 equals.addEventListener('click', (e) => {
-    b = +display.textContent;
-
+    b = Number(display.textContent);
+    display.textContent = operate( operator, a, b )
+    console.log(  a,b,operator )
+    a = null;
+    b = null;
+    operator = null;
+    number.forEach( (item) =>  {
+        item.addEventListener( 'click', (e) => {
+            display.textContent = e.target.textContent;
+            item.addEventListener( 'click', (e) => {
+                populateDisplay(e.target.textContent)
+            } )
+        } )
+    } )
 } )
