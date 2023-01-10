@@ -39,7 +39,7 @@
                 break;
             
             case "/": 
-                return divide( a, b )
+                return divide( a, b )           
                 break;
 
 
@@ -52,6 +52,7 @@ const number = document.querySelectorAll('.number, .clear');
 const operators = document.querySelectorAll('.operator');
 const display = document.querySelector('.display');
 const equals = document.querySelector('.equals')
+const backspace = document.querySelector('.backspace')
 
 let count = 0;
 
@@ -61,6 +62,14 @@ function populateDisplay ( str ) {
 
 let a, b, operator
 
+backspace.addEventListener( 'click', ( e ) => {
+    if ( display.textContent.length > 0  ) {
+        display.textContent = display.textContent.slice(0,-1);
+
+    }
+
+} ) 
+
 number.forEach( (item) =>  {
     item.addEventListener('click', (e) => {
         if (e.target.classList == 'clear') {
@@ -69,14 +78,23 @@ number.forEach( (item) =>  {
             b = null;
             operator = null;
             count = 0;
+
+            const dot = document.getElementsByClassName(".")
+            dot[0].disabled = false;
         } else {
             if (count == 0) {
                 display.textContent = e.target.textContent }
                 else {
                     populateDisplay(e.target.textContent);
+                    if ( e.target.classList[1] == '.' ) {
+                        e.target.disabled = true;          
+                        
+                    }
             }
-            ++count
+        
         }
+
+        ++count;
     })
 })
 
@@ -86,13 +104,21 @@ operators.forEach( (item) => {
         a = Number(display.textContent);
         operator = e.target.textContent;
         display.textContent = '';
+        const dot = document.getElementsByClassName(".")
+        dot[0].disabled = false;
     })
 } )
 
 equals.addEventListener('click', (e) => {
     b = Number(display.textContent);
-    display.textContent = Math.round(operate( operator, a, b )*100) /100;
-    console.log(  a,b,operator )
+    // alert( typeof(operate( operator, a, b ) ))
+    const dot = document.getElementsByClassName(".")
+    dot[0].disabled = false;
+    if (typeof(operate( operator, a, b ) == 'string')) {
+        display.textContent = operate( operator, a, b );
+    } else {
+        display.textContent = Math.round(operate( operator, a, b )*100) /100;
+    }
     a = null;
     b = null;
     operator = null;
