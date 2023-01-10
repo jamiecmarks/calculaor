@@ -25,6 +25,7 @@
     font-family: 'Scientific Calculator LCD', sans-serif;  
     flex: 0 1 auto;
     word-wrap:break-word;
+    min-height: 37px;
 }
 
 .row {

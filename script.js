@@ -17,13 +17,13 @@
     }
 
     function divide ( a, b ) {
-        if ( b == 0 ) return "ERROR" 
+        if ( b == 0 ) return "AHHAHHA" 
         
         return a / b
     }
 
     function operate ( operator, a , b) {
-        if ( !a || !b || !operator) {
+        if ( a == null || b == null || !operator) {
             return "INSUFFICENT INFORMATION"
         }
         switch (operator) {
@@ -53,6 +53,8 @@ const operators = document.querySelectorAll('.operator');
 const display = document.querySelector('.display');
 const equals = document.querySelector('.equals')
 
+let count = 0;
+
 function populateDisplay ( str ) {
     display.textContent += str;
 }
@@ -62,12 +64,18 @@ let a, b, operator
 number.forEach( (item) =>  {
     item.addEventListener('click', (e) => {
         if (e.target.classList == 'clear') {
-            display.textContent = '';
+            display.textContent = '0';
             a = null;
             b = null;
             operator = null;
-        } else { 
-        populateDisplay(e.target.textContent);
+            count = 0;
+        } else {
+            if (count == 0) {
+                display.textContent = e.target.textContent }
+                else {
+                    populateDisplay(e.target.textContent);
+            }
+            ++count
         }
     })
 })
@@ -83,7 +91,7 @@ operators.forEach( (item) => {
 
 equals.addEventListener('click', (e) => {
     b = Number(display.textContent);
-    display.textContent = operate( operator, a, b )
+    display.textContent = Math.round(operate( operator, a, b )*100) /100;
     console.log(  a,b,operator )
     a = null;
     b = null;
@@ -92,7 +100,20 @@ equals.addEventListener('click', (e) => {
         item.addEventListener( 'click', (e) => {
             display.textContent = e.target.textContent;
             item.addEventListener( 'click', (e) => {
-                populateDisplay(e.target.textContent)
+                if (e.target.classList == 'clear') {
+                    display.textContent = '0';
+                    a = null;
+                    b = null;
+                    operator = null;
+                    count = 0;
+                } else {
+                    if (count == 0) {
+                        display.textContent = e.target.textContent }
+                        else {
+                            populateDisplay(e.target.textContent);
+                    }
+                    ++count
+                }
             } )
         } )
     } )
